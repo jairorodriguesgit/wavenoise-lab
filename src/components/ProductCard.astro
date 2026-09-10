@@ -1,0 +1,88 @@
+---
+import type { Product } from '../data/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+const formattedPrice =
+  typeof product.price === 'number'
+    ? product.price === 0
+      ? 'FREE'
+      : new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }).format(product.price)
+    : null;
+---
+
+<a
+  href={`/products/${product.slug}`}
+  class="border border-border bg-surface rounded-sm p-4 sm:p-5 flex flex-col justify-between hover:bg-surface-hover hover:border-text-muted/40 transition group cursor-pointer"
+>
+  <!-- Capa 1:1 do Produto -->
+  <div class="aspect-square w-full bg-chassis border border-border/80 rounded-sm overflow-hidden relative mb-4 flex flex-col justify-between p-4 text-center">
+    {
+      product.coverImage ? (
+        <img
+          src={product.coverImage}
+          alt={`Capa de ${product.name}`}
+          class="w-full h-full object-cover absolute inset-0"
+          loading="lazy"
+        />
+      ) : (
+        <div class="w-full h-full flex flex-col justify-between items-center text-center">
+          <div class="w-full flex items-center justify-between font-mono text-[10px] text-text-muted/70">
+            <span>{product.id.toUpperCase()}</span>
+            <span>WNL</span>
+          </div>
+
+          <div class="my-auto py-4">
+            <span class="font-mono text-[10px] uppercase tracking-widest text-text-muted block mb-1.5">
+              {product.category}
+            </span>
+            <span class="font-bold text-sm sm:text-base text-text-main uppercase group-hover:text-accent transition-colors block line-clamp-2">
+              {product.name}
+            </span>
+          </div>
+
+          <div class="w-full border-t border-border/60 pt-2 flex items-center justify-between font-mono text-[9px] text-text-muted/60 uppercase">
+            <span>WAV 24-BIT</span>
+            <span class="text-accent/80 font-medium">EM PRODUÇÃO</span>
+          </div>
+        </div>
+      )
+    }
+  </div>
+
+  <!-- Informações Inferiores do Card -->
+  <div class="flex flex-col gap-1.5">
+    <div class="flex items-center gap-1.5">
+      {product.isFree && <span class="w-1.5 h-1.5 rounded-full bg-accent inline-block" />}
+      <span class="font-mono text-[10px] uppercase tracking-widest text-text-muted truncate">
+        {product.category}
+      </span>
+    </div>
+
+    <h3 class="text-sm sm:text-base font-bold text-text-main uppercase tracking-tight group-hover:text-accent transition-colors truncate">
+      {product.name}
+    </h3>
+
+    <div class="mt-2 pt-2 border-t border-border/60 flex items-center justify-between font-mono text-xs">
+      <span class="text-text-muted text-[11px]">PREÇO:</span>
+      <span class="font-bold text-text-main">
+        {
+          product.isFree ? (
+            <span class="text-accent">FREE</span>
+          ) : product.price !== null ? (
+            formattedPrice
+          ) : (
+            <span class="text-text-muted text-[11px] font-normal">PREÇO EM BREVE</span>
+          )
+        }
+      </span>
+    </div>
+  </div>
+</a>

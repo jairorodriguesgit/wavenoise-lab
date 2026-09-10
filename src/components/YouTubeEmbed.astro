@@ -2,18 +2,23 @@
 interface Props {
   videoId: string | null;
   title: string;
+  aspectRatio?: '16:9' | '9:16' | null;
 }
 
-const { videoId, title } = Astro.props;
+const { videoId, title, aspectRatio = '16:9' } = Astro.props;
 
 const hasValidVideo = Boolean(videoId && videoId !== 'VIDEO_PLACEHOLDER');
+const isVertical = aspectRatio === '9:16';
+const containerRatioClass = isVertical
+  ? 'aspect-[9/16] w-full max-w-[340px] sm:max-w-[380px] mx-auto'
+  : 'aspect-video w-full';
 ---
 
 <div class="w-full">
   {
     hasValidVideo ? (
       <div
-        class="youtube-facade relative aspect-video w-full bg-surface border border-border rounded-sm overflow-hidden cursor-pointer group flex items-center justify-center"
+        class={`youtube-facade relative ${containerRatioClass} bg-surface border border-border rounded-sm overflow-hidden cursor-pointer group flex items-center justify-center`}
         data-video-id={videoId}
         data-title={title}
         role="button"

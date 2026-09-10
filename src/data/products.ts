@@ -18,6 +18,7 @@ export interface Product {
   description: string | null;
   coverImage: string | null;
   youtubeVideoId: string | null;
+  youtubeAspectRatio?: '16:9' | '9:16' | null;
   price: number | null;
   originalPrice?: number | null;
   isFree: boolean;
@@ -88,7 +89,8 @@ export const products: Product[] = [
     tagline: null,
     description: 'Sample pack voltado para sonoridades modernas de Metal.',
     coverImage: null,
-    youtubeVideoId: null,
+    youtubeVideoId: 'qhGB5ckBtgU',
+    youtubeAspectRatio: '9:16',
     price: null,
     originalPrice: null,
     isFree: false,
