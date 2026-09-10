@@ -1,0 +1,95 @@
+---
+interface Props {
+  videoId: string | null;
+  title: string;
+}
+
+const { videoId, title } = Astro.props;
+
+const hasValidVideo = Boolean(videoId && videoId !== 'VIDEO_PLACEHOLDER');
+---
+
+<div class="w-full">
+  {
+    hasValidVideo ? (
+      <div
+        class="youtube-facade relative aspect-video w-full bg-surface border border-border rounded-sm overflow-hidden cursor-pointer group flex items-center justify-center"
+        data-video-id={videoId}
+        data-title={title}
+        role="button"
+        tabindex="0"
+        aria-label={`Reproduzir vídeo de demonstração de ${title}`}
+      >
+        <img
+          src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`}
+          alt={`Demonstração de ${title}`}
+          class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+          loading="lazy"
+        />
+
+        <div class="absolute inset-0 bg-chassis/40 group-hover:bg-chassis/20 transition-colors" />
+
+        <div class="relative z-10 w-16 h-16 rounded-sm bg-surface/90 border border-border flex items-center justify-center text-text-main group-hover:scale-105 group-active:scale-95 transition-transform shadow-lg">
+          <svg class="w-6 h-6 fill-current translate-x-0.5" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+
+        <div class="absolute bottom-3 left-3 z-10 font-mono text-[10px] text-text-main bg-chassis/80 px-2 py-1 border border-border rounded-sm uppercase tracking-wider">
+          Vídeo no contexto musical
+        </div>
+      </div>
+    ) : (
+      <div class="aspect-video w-full bg-surface border border-border rounded-sm flex flex-col items-center justify-center p-6 text-center">
+        <div class="w-12 h-12 border border-border rounded-sm bg-chassis flex items-center justify-center text-text-muted mb-3">
+          <svg class="w-5 h-5 fill-current opacity-60" viewBox="0 0 24 24">
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        </div>
+        <span class="font-mono text-xs uppercase tracking-widest text-text-main font-semibold">
+          VÍDEO DE DEMONSTRAÇÃO EM PRODUÇÃO
+        </span>
+        <span class="font-mono text-[11px] text-text-muted mt-1 max-w-sm">
+          A demonstração contextual dos samples na mixagem estará disponível em breve.
+        </span>
+      </div>
+    )
+  }
+</div>
+
+<script>
+  // Lógica client-side leve para o facade do YouTube
+  document.querySelectorAll<HTMLElement>('.youtube-facade').forEach((facade) => {
+    const loadIframe = () => {
+      const videoId = facade.dataset.videoId;
+      const title = facade.dataset.title || 'Demonstração de áudio';
+      if (!videoId) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute(
+        'src',
+        `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`
+      );
+      iframe.setAttribute('title', title);
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute(
+        'allow',
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+      );
+      iframe.setAttribute('allowfullscreen', 'true');
+      iframe.className = 'w-full h-full absolute inset-0';
+
+      facade.innerHTML = '';
+      facade.appendChild(iframe);
+      facade.classList.remove('cursor-pointer');
+    };
+
+    facade.addEventListener('click', loadIframe, { once: true });
+    facade.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        loadIframe();
+      }
+    }, { once: true });
+  });
+</script>

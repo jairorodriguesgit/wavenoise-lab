@@ -1,0 +1,202 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import YouTubeEmbed from '../../components/YouTubeEmbed.astro';
+import SpecsTable from '../../components/SpecsTable.astro';
+import BuyButton from '../../components/BuyButton.astro';
+import { products, getRelatedProducts, type Product } from '../../data/products';
+
+export async function getStaticPaths() {
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+
+// Obtém os outros packs (excluindo o atual) para a seção de relacionados
+const relatedProducts = getRelatedProducts(product.id, 4);
+---
+
+<BaseLayout
+  title={`WaveNoise Lab — ${product.name}`}
+  description={product.description || 'Sample pack profissional para bateria e produção musical.'}
+  ogImage={product.coverImage || '/favicon.svg'}
+>
+  <Header />
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16 w-full flex flex-col gap-16">
+    <!-- Bloco Principal do Produto (Desktop: 2 Colunas / Mobile: 1 Coluna) -->
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <!-- Coluna da Esquerda: Capa do Produto (1:1) -->
+      <div class="md:col-span-6 lg:col-span-5 w-full">
+        {
+          product.coverImage ? (
+            <img
+              src={product.coverImage}
+              alt={`Capa do produto ${product.name}`}
+              class="w-full aspect-square object-cover rounded-sm border border-border"
+              loading="eager"
+            />
+          ) : (
+            <div class="w-full aspect-square bg-surface border border-border rounded-sm p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
+              <div class="flex items-center justify-between font-mono text-[11px] text-text-muted">
+                <span>{product.id.toUpperCase()}</span>
+                <span>WAVENOISE LAB</span>
+              </div>
+
+              <div class="flex flex-col items-center justify-center text-center my-auto py-6">
+                <span class="font-mono text-[11px] uppercase tracking-widest text-text-muted mb-2">
+                  {product.category}
+                </span>
+                <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-text-main uppercase">
+                  {product.name}
+                </h2>
+              </div>
+
+              <div class="border-t border-border/80 pt-3 flex items-center justify-between font-mono text-[10px] text-text-muted">
+                <span>FORMAT: WAV 24-BIT</span>
+                <span class="text-accent uppercase font-medium">ARTE EM PRODUÇÃO</span>
+              </div>
+            </div>
+          )
+        }
+      </div>
+
+      <!-- Coluna da Direita: Informações, Preço e Compra -->
+      <div class="md:col-span-6 lg:col-span-7 flex flex-col gap-6">
+        <!-- Categoria com indicador visual -->
+        <div class="flex items-center gap-2">
+          {product.isFree && <span class="w-2 h-2 rounded-full bg-accent inline-block" />}
+          <span class="font-mono text-xs uppercase tracking-widest text-text-muted">
+            {product.category}
+          </span>
+        </div>
+
+        <!-- Nome do Produto -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-main uppercase">
+          {product.name}
+        </h1>
+
+        <!-- Subtítulo / Tagline (se existir) -->
+        {product.tagline && (
+          <p class="text-base sm:text-lg text-text-main font-medium leading-relaxed">
+            {product.tagline}
+          </p>
+        )}
+
+        <!-- Descrição Curta e Objetiva -->
+        {product.description && (
+          <p class="text-sm sm:text-base text-text-muted leading-relaxed max-w-xl">
+            {product.description}
+          </p>
+        )}
+
+        <!-- Preço e Botão de Ação -->
+        <div class="pt-4 border-t border-border max-w-md">
+          <BuyButton
+            isFree={product.isFree}
+            price={product.price}
+            originalPrice={product.originalPrice}
+            ctaLabel={product.ctaLabel}
+            checkoutUrl={product.checkoutUrl}
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Bloco 2: Vídeo de Demonstração em Contexto Musical -->
+    <section class="flex flex-col gap-4 border-t border-border pt-12">
+      <div class="flex items-center justify-between">
+        <h2 class="font-mono text-xs uppercase tracking-wider text-text-main font-semibold">
+          DEMONSTRAÇÃO EM CONTEXTO MUSICAL
+        </h2>
+        <span class="font-mono text-[11px] text-text-muted">AUDIO PREVIEW</span>
+      </div>
+      <YouTubeEmbed videoId={product.youtubeVideoId} title={product.name} />
+    </section>
+
+    <!-- Bloco 3: Especificações Técnicas -->
+    <section class="flex flex-col gap-4 border-t border-border pt-12">
+      <div class="flex items-center justify-between">
+        <h2 class="font-mono text-xs uppercase tracking-wider text-text-main font-semibold">
+          DETALHES E COMPATIBILIDADE
+        </h2>
+        <span class="font-mono text-[11px] text-text-muted">SPECS</span>
+      </div>
+      <SpecsTable specs={product.specs} />
+    </section>
+
+    <!-- Bloco 4: Mais da WaveNoise Lab (Produtos Relacionados) -->
+    {
+      relatedProducts.length > 0 && (
+        <section class="flex flex-col gap-6 border-t border-border pt-12">
+          <div class="flex items-center justify-between">
+            <h2 class="font-mono text-xs uppercase tracking-wider text-text-main font-semibold">
+              MAIS DA WAVENOISE LAB
+            </h2>
+            <a
+              href="/"
+              class="font-mono text-[11px] text-text-muted hover:text-text-main transition uppercase"
+            >
+              Ver todos &rarr;
+            </a>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {relatedProducts.map((rel) => (
+              <a
+                href={`/products/${rel.slug}`}
+                class="border border-border bg-surface rounded-sm p-4 flex flex-col justify-between hover:bg-surface-hover hover:border-text-muted/40 transition group"
+              >
+                <div class="aspect-square bg-chassis border border-border/60 rounded-sm p-3 flex flex-col justify-between mb-3 text-center">
+                  <span class="font-mono text-[9px] text-text-muted uppercase tracking-wider">
+                    {rel.category}
+                  </span>
+                  <span class="font-mono text-xs font-bold text-text-main uppercase group-hover:text-accent transition-colors line-clamp-2">
+                    {rel.name}
+                  </span>
+                  <span class="font-mono text-[9px] text-text-muted/60">PACK</span>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                  <span class="font-mono text-[10px] text-text-muted uppercase truncate">
+                    {rel.category}
+                  </span>
+                  <span class="text-xs font-bold text-text-main truncate">
+                    {rel.name}
+                  </span>
+                  <span class="font-mono text-xs font-semibold mt-1 text-text-main">
+                    {rel.isFree ? (
+                      <span class="text-accent">FREE</span>
+                    ) : rel.price !== null ? (
+                      `R$ ${rel.price}`
+                    ) : (
+                      <span class="text-text-muted text-[11px]">EM BREVE</span>
+                    )}
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </main>
+
+  <!-- Rodapé Simples -->
+  <footer class="border-t border-border py-8 mt-12 bg-chassis text-text-muted font-mono text-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>WAVENOISE LAB &copy; 2026 — TODOS OS DIREITOS RESERVADOS</div>
+      <div class="flex items-center gap-6">
+        <a href="/" class="hover:text-text-main transition">HOME</a>
+        <a href="/about" class="hover:text-text-main transition">SOBRE</a>
+      </div>
+    </div>
+  </footer>
+</BaseLayout>

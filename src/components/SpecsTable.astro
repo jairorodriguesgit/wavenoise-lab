@@ -1,0 +1,49 @@
+---
+import type { ProductSpecs } from '../data/products';
+
+interface Props {
+  specs: ProductSpecs;
+}
+
+const { specs } = Astro.props;
+
+const specItems = [
+  { label: 'CONTEÚDO', value: specs.contents },
+  { label: 'QUANTIDADE', value: specs.sampleCount },
+  { label: 'FORMATO', value: specs.format },
+  { label: 'RESOLUÇÃO', value: specs.resolution },
+  { label: 'COMPATIBILIDADE', value: specs.compatibility },
+  { label: 'TAMANHO', value: specs.fileSize },
+  { label: 'LICENÇA', value: specs.license },
+  ...(specs.requirements ? [{ label: 'REQUISITOS', value: specs.requirements }] : []),
+];
+---
+
+<div class="border border-border bg-surface rounded-sm overflow-hidden w-full">
+  <!-- Cabeçalho da Tabela Técnica -->
+  <div class="px-4 py-3 border-b border-border bg-chassis/60 flex items-center justify-between">
+    <span class="font-mono text-xs uppercase tracking-wider text-text-main font-semibold">
+      ESPECIFICAÇÕES DO PACK
+    </span>
+    <span class="font-mono text-[10px] text-text-muted uppercase tracking-widest">
+      AUDIO SPEC SHEET
+    </span>
+  </div>
+
+  <!-- Linhas de Especificação -->
+  <dl class="divide-y divide-border font-mono text-xs">
+    {
+      specItems.map((item) => (
+        <div class="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5 hover:bg-surface-hover/50 transition-colors">
+          <dt class="text-text-muted uppercase text-[11px] flex items-center">
+            {item.label}
+          </dt>
+          <dd class={`sm:col-span-2 mt-0.5 sm:mt-0 ${item.value ? 'text-text-main' : 'text-text-muted/60'}`}>
+            {item.value || '—'}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</div>
+
