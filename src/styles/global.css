@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-chassis: #0C0D0E;
+  --color-surface: #151719;
+  --color-surface-hover: #1D2024;
+  --color-border: #272B30;
+  --color-text-main: #F4F5F6;
+  --color-text-muted: #8E959E;
+  --color-accent: #E07A2A;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, Monaco, Consolas, monospace;
+}
+
+/* Audio Hardware Base Theme */
+:root {
+  color-scheme: dark;
+}
+
+html {
+  background-color: var(--color-chassis);
+  color: var(--color-text-main);
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilitários complementares de precisão de estúdio */
+::selection {
+  background-color: #E07A2A;
+  color: #0C0D0E;
+}
+

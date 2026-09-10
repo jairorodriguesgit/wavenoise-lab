@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="WaveNoise Lab — Design System (Etapa 1)">
+  <main class="max-w-4xl mx-auto px-4 py-12 sm:px-6 sm:py-16 w-full flex flex-col gap-12">
+    <!-- Cabeçalho Técnico de Validação -->
+    <header class="border-b border-border pb-6 flex flex-col gap-2">
+      <div class="flex items-center gap-3">
+        <span class="w-2.5 h-2.5 rounded-full bg-accent inline-block"></span>
+        <span class="font-mono text-xs uppercase tracking-widest text-text-muted">Sistema Base — Etapa 1</span>
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-text-main uppercase">
+        WaveNoise Lab
+      </h1>
+      <p class="text-sm sm:text-base text-text-muted max-w-xl">
+        Página de validação do Design System e fundação técnica. Inspirada na precisão e sobriedade de equipamentos de áudio profissional.
+      </p>
+    </header>
+
+    <!-- Seção 1: Paleta de Cores e Superfícies -->
+    <section class="flex flex-col gap-4">
+      <h2 class="font-mono text-xs uppercase tracking-wider text-text-muted">
+        01. Superfícies e Amostras de Cor
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="border border-border bg-chassis p-4 rounded-sm">
+          <div class="font-mono text-xs text-text-muted">CHASSIS</div>
+          <div class="font-mono text-sm font-semibold text-text-main mt-1">#0C0D0E</div>
+        </div>
+        <div class="border border-border bg-surface p-4 rounded-sm">
+          <div class="font-mono text-xs text-text-muted">SURFACE</div>
+          <div class="font-mono text-sm font-semibold text-text-main mt-1">#151719</div>
+        </div>
+        <div class="border border-border bg-surface-hover p-4 rounded-sm">
+          <div class="font-mono text-xs text-text-muted">HOVER</div>
+          <div class="font-mono text-sm font-semibold text-text-main mt-1">#1D2024</div>
+        </div>
+        <div class="border border-border bg-surface p-4 rounded-sm">
+          <div class="font-mono text-xs text-accent">ACCENT</div>
+          <div class="font-mono text-sm font-semibold text-accent mt-1">#E07A2A</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 2: Tipografia e Hierarquia -->
+    <section class="flex flex-col gap-4">
+      <h2 class="font-mono text-xs uppercase tracking-wider text-text-muted">
+        02. Tipografia e Escalas Técnicas
+      </h2>
+      <div class="border border-border bg-surface p-6 rounded-sm flex flex-col gap-6">
+        <div>
+          <span class="font-mono text-xs text-text-muted uppercase">Display Heading (Sans-serif)</span>
+          <p class="text-xl sm:text-2xl font-bold tracking-tight text-text-main mt-1">
+            MODERN METAL DRUM SAMPLES
+          </p>
+        </div>
+
+        <div>
+          <span class="font-mono text-xs text-text-muted uppercase">Corpo de Texto (Sans-serif)</span>
+          <p class="text-sm sm:text-base text-text-muted mt-1 leading-relaxed">
+            Amostras gravadas e processadas através de conversores de ponta e compressores analógicos de estúdio. Sem marketing exagerado, direto ao ponto.
+          </p>
+        </div>
+
+        <div>
+          <span class="font-mono text-xs text-text-muted uppercase">Especificações Técnicas (Monospace)</span>
+          <div class="font-mono text-xs sm:text-sm text-text-main mt-2 bg-chassis p-4 border border-border rounded-sm grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <div>FORMATO: <span class="text-text-muted">24-bit / 48kHz WAV</span></div>
+            <div>STATUS: <span class="text-accent font-semibold">ONLINE</span></div>
+            <div>COMPATIBILIDADE: <span class="text-text-muted">TODAS AS DAWS</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 3: Botões e Controles Táteis -->
+    <section class="flex flex-col gap-4">
+      <h2 class="font-mono text-xs uppercase tracking-wider text-text-muted">
+        03. Controles e Botões
+      </h2>
+      <div class="border border-border bg-surface p-6 rounded-sm flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+        <!-- Botão Primário -->
+        <button
+          type="button"
+          class="h-12 px-6 bg-text-main text-chassis font-bold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 active:scale-[0.98] transition flex items-center justify-center cursor-pointer"
+        >
+          Botão Primário (Comprar)
+        </button>
+
+        <!-- Botão Secundário / Grátis -->
+        <button
+          type="button"
+          class="h-12 px-6 border border-border bg-transparent text-text-main font-bold text-xs uppercase tracking-wider rounded-sm hover:bg-surface-hover active:scale-[0.98] transition flex items-center justify-center cursor-pointer"
+        >
+          Botão Secundário (Download Grátis)
+        </button>
+
+        <!-- Badge Técnico -->
+        <div class="flex items-center gap-2 px-3 py-1.5 border border-border bg-chassis rounded-sm self-start sm:self-auto font-mono text-xs">
+          <span class="w-2 h-2 rounded-full bg-accent"></span>
+          <span class="text-text-muted">LED SINAL</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé Técnico -->
+    <footer class="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-text-muted font-mono gap-2">
+      <div>WAVENOISE LAB — ESTÚDIO DE DESIGN SYSTEM</div>
+      <div>SSG • ASTRO • TAILWIND V4</div>
+    </footer>
+  </main>
+</BaseLayout>
+
