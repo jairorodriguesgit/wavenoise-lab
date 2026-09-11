@@ -8,80 +8,83 @@ interface Props {
 const { product } = Astro.props;
 
 const formattedPrice =
-  typeof product.price === 'number'
-    ? product.price === 0
-      ? 'FREE'
-      : new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format(product.price)
+  typeof product.price === 'number' && product.price > 0
+    ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)
     : null;
+
+// Pega só o primeiro segmento da categoria para o badge (ex: "FREE" de "FREE / WORSHIP / FX")
+const badgeLabel = product.category.split('/')[0].trim();
 ---
 
 <a
   href={`/products/${product.slug}`}
-  class="border border-border bg-surface rounded-sm p-4 sm:p-5 flex flex-col justify-between hover:bg-surface-hover hover:border-text-muted/40 transition group cursor-pointer"
+  class="group flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1"
+  style="background:#1b1917;border:1px solid rgba(255,255,255,0.08);border-radius:20px"
 >
-  <!-- Capa 1:1 do Produto -->
-  <div class="aspect-square w-full bg-chassis border border-border/80 rounded-sm overflow-hidden relative mb-4 flex flex-col justify-between p-4 text-center">
-    {
-      product.coverImage ? (
-        <img
-          src={product.coverImage}
-          alt={`Capa de ${product.name}`}
-          class="w-full h-full object-cover absolute inset-0"
-          loading="lazy"
-        />
-      ) : (
-        <div class="w-full h-full flex flex-col justify-between items-center text-center">
-          <div class="w-full flex items-center justify-between font-mono text-[10px] text-text-muted/70">
-            <span>{product.id.toUpperCase()}</span>
-            <span>WNL</span>
-          </div>
+  <!-- Capa 4:3 -->
+  <div class="relative overflow-hidden" style="aspect-ratio:4/3">
+    {product.coverImage ? (
+      <img
+        src={product.coverImage}
+        alt={`Capa de ${product.name}`}
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    ) : (
+      <div
+        class="w-full h-full flex items-center justify-center"
+        style="background:repeating-linear-gradient(135deg,rgba(242,237,228,0.04) 0 10px,transparent 10px 24px),#1b1917"
+      >
+        <span class="font-mono text-xs text-text-muted/40">[ capa em produção ]</span>
+      </div>
+    )}
 
-          <div class="my-auto py-4">
-            <span class="font-mono text-[10px] uppercase tracking-widest text-text-muted block mb-1.5">
-              {product.category}
-            </span>
-            <span class="font-bold text-sm sm:text-base text-text-main uppercase group-hover:text-accent transition-colors block line-clamp-2">
-              {product.name}
-            </span>
-          </div>
+    <!-- Badge categoria -->
+    <span
+      class="absolute left-4 top-4 font-mono text-[11px] tracking-widest uppercase text-chassis bg-accent px-2.5 py-1 rounded-full"
+    >
+      {badgeLabel}
+    </span>
 
-          <div class="w-full border-t border-border/60 pt-2 flex items-center justify-between font-mono text-[9px] text-text-muted/60 uppercase">
-            <span>WAV 24-BIT</span>
-            <span class="text-accent/80 font-medium">EM PRODUÇÃO</span>
-          </div>
-        </div>
-      )
-    }
+    <!-- Badge FREE -->
+    {product.isFree && (
+      <span
+        class="absolute right-4 top-4 font-mono text-[11px] tracking-widest uppercase text-accent px-2.5 py-1 rounded-full"
+        style="border:1px solid rgba(255,255,255,0.3);background:rgba(255,255,255,0.08)"
+      >
+        FREE
+      </span>
+    )}
   </div>
 
-  <!-- Informações Inferiores do Card -->
-  <div class="flex flex-col gap-1.5">
-    <div class="flex items-center gap-1.5">
-      {product.isFree && <span class="w-1.5 h-1.5 rounded-full bg-accent inline-block" />}
-      <span class="font-mono text-[10px] uppercase tracking-widest text-text-muted truncate">
-        {product.category}
-      </span>
+  <!-- Informações -->
+  <div class="p-5 flex flex-col gap-3 flex-1">
+    <div>
+      <h3 class="font-heading font-bold text-xl text-text-main mb-1 leading-tight">
+        {product.name}
+      </h3>
+      {product.tagline && (
+        <p class="text-text-muted text-sm leading-snug">{product.tagline}</p>
+      )}
     </div>
 
-    <h3 class="text-sm sm:text-base font-bold text-text-main uppercase tracking-tight group-hover:text-accent transition-colors truncate">
-      {product.name}
-    </h3>
-
-    <div class="mt-2 pt-2 border-t border-border/60 flex items-center justify-between font-mono text-xs">
-      <span class="text-text-muted text-[11px]">PREÇO:</span>
-      <span class="font-bold text-text-main">
-        {
-          product.isFree ? (
-            <span class="text-accent">FREE</span>
-          ) : product.price !== null ? (
-            formattedPrice
-          ) : (
-            <span class="text-text-muted text-[11px] font-normal">PREÇO EM BREVE</span>
-          )
-        }
+    <!-- Preço + CTA -->
+    <div
+      class="flex items-center justify-between mt-auto pt-3 gap-3"
+      style="border-top:1px solid rgba(255,255,255,0.08)"
+    >
+      <span class="font-mono text-xs text-text-muted">
+        {product.isFree
+          ? 'Acesso livre'
+          : product.price !== null && product.price !== undefined && product.price > 0
+            ? formattedPrice
+            : 'Em breve'}
+      </span>
+      <span
+        class="font-mono text-xs px-3 py-1.5 rounded-full transition group-hover:bg-text-main group-hover:text-chassis"
+        style="border:1px solid rgba(255,255,255,0.18);color:#f2ede4"
+      >
+        Ver pack
       </span>
     </div>
   </div>

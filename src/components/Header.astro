@@ -1,33 +1,62 @@
 ---
-// Header mínimo e profissional para o WaveNoise Lab
+import { whatsAppGeneral } from '../data/site.config';
+
+const waUrl = whatsAppGeneral();
+const currentPath = Astro.url.pathname;
 ---
 
-<header class="border-b border-border bg-chassis sticky top-0 z-50">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-    <!-- Marca textual com link para a Home -->
-    <a
-      href="/"
-      class="font-bold text-sm sm:text-base tracking-widest uppercase text-text-main hover:opacity-80 transition"
-    >
-      WAVENOISE LAB
+<header
+  style="position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(18,17,16,0.82);border-bottom:1px solid rgba(255,255,255,0.08)"
+>
+  <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4 flex-wrap">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2.5 hover:opacity-80 transition">
+      <span class="w-6 h-6 rounded-full bg-accent flex-shrink-0 block"></span>
+      <span class="font-heading font-extrabold text-text-main tracking-widest text-sm">WAVENOISE LAB</span>
     </a>
 
-    <!-- Navegação discreta e sem excessos -->
-    <nav class="flex items-center gap-6 font-mono text-xs">
-      <a href="/" class="text-text-muted hover:text-text-main transition">
-        SAMPLES
+    <!-- Navegação -->
+    <nav class="flex items-center gap-1 flex-wrap">
+      <a
+        href="/"
+        class:list={['text-sm px-3 py-2 rounded-full transition', currentPath === '/' ? 'text-text-main' : 'text-text-muted hover:text-text-main hover:bg-white/5']}
+      >
+        Samples
       </a>
       <a
         href="/products/free-altar-worship-fx"
-        class="text-text-muted hover:text-accent transition flex items-center gap-1.5"
+        class:list={['text-sm px-3 py-2 rounded-full transition', currentPath.includes('free-altar') ? 'text-text-main' : 'text-text-muted hover:text-text-main hover:bg-white/5']}
       >
-        <span class="w-1.5 h-1.5 rounded-full bg-accent inline-block"></span>
-        FREE
+        Free
       </a>
-      <a href="/about" class="text-text-muted hover:text-text-main transition">
-        SOBRE
+      <a
+        href="/about"
+        class:list={['text-sm px-3 py-2 rounded-full transition', currentPath === '/about' ? 'text-text-main' : 'text-text-muted hover:text-text-main hover:bg-white/5']}
+      >
+        Sobre
+      </a>
+      <a
+        href="/faq"
+        class:list={['text-sm px-3 py-2 rounded-full transition', currentPath === '/faq' ? 'text-text-main' : 'text-text-muted hover:text-text-main hover:bg-white/5']}
+      >
+        FAQ
+      </a>
+      <a
+        href="/contact"
+        class:list={['text-sm px-3 py-2 rounded-full transition', currentPath === '/contact' ? 'text-text-main' : 'text-text-muted hover:text-text-main hover:bg-white/5']}
+      >
+        Contato
+      </a>
+      <!-- Botão WhatsApp destacado -->
+      <a
+        href={waUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bg-accent text-chassis font-semibold text-sm px-4 py-2 rounded-full ml-2 hover:opacity-90 transition"
+      >
+        WhatsApp
       </a>
     </nav>
   </div>
 </header>
-

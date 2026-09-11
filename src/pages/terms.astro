@@ -4,52 +4,172 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<BaseLayout title="Termos de Uso – WaveNoise Lab" description="Estrutura inicial dos Termos de Uso para WaveNoise Lab. Conteúdo a ser definido." >
+<BaseLayout title="Termos de Uso – WaveNoise Lab" description="Termos de Uso para WaveNoise Lab">
   <Header />
-  <main class="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8 prose prose-invert text-text-main">
-    <section>
-      <h1>Termos de Uso</h1>
-      <p>[DEFINIR INTRODUÇÃO GERAL]</p>
-    </section>
+  <main class="mx-auto w-full max-w-3xl px-5 py-16 sm:px-6 sm:py-20">
+    <header class="mb-14 border-b border-border pb-10">
+      <p class="mb-3 font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent">Termos de Uso</p>
+      <h1 class="text-3xl font-semibold tracking-tight text-text-main sm:text-4xl">Termos de Uso</h1>
+      <p class="mt-4 font-mono text-xs uppercase tracking-wider text-text-secondary">Última atualização: [DEFINIR DATA]</p>
+    </header>
 
-    <section>
-      <h2>Natureza dos Produtos</h2>
-      <p>Os produtos oferecidos são recursos digitais de áudio – samples, kits e bibliotecas – destinados a produção musical.</p>
-      <p>[DEFINIR DETALHES DA NATUREZA DOS PRODUTOS]</p>
-    </section>
+    <div class="space-y-12 text-sm leading-7 text-text-secondary sm:text-base">
+      <section>
+        <p>Estes Termos de Uso estabelecem as condições para acesso e utilização do site WaveNoise Lab e para aquisição e utilização dos produtos digitais disponibilizados pela marca.</p>
+        <p>Ao acessar o site, adquirir ou utilizar qualquer produto disponibilizado pela WaveNoise Lab, você declara estar de acordo com estes Termos de Uso.</p>
+      </section>
 
-    <section>
-      <h2>Licença</h2>
-      <p>O uso dos samples está sujeito a regras que definiremos posteriormente, incluindo:</p>
-      <ul>
-        <li>Uso em produções musicais</li>
-        <li>Uso comercial</li>
-        <li>Uso em gravações, shows e trilhas</li>
-        <li>Proibição de redistribuição dos samples isolados</li>
-        <li>Proibição de revenda</li>
-        <li>Proibição de inclusão dos samples em outro pack concorrente</li>
-      </ul>
-      <p>[DEFINIR REGRAS DE LICENÇA]</p>
-    </section>
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">1. SOBRE A WAVE NOISE LAB</h2>
+        <p>A WaveNoise Lab disponibiliza recursos sonoros e produtos digitais voltados à produção musical, incluindo samples, one-shots, efeitos e outros conteúdos relacionados à criação e produção de áudio.
+        Os produtos são fornecidos em formato digital e destinam-se à utilização em ambientes de produção musical compatíveis com os respectivos formatos.</p>
+      </section>
 
-    <section>
-      <h2>Entrega</h2>
-      <p>[DEFINIR COMO OS PRODUTOS SERÃO ENTREGUES APÓS A COMPRA]</p>
-    </section>
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">2. PRODUTOS DIGITAIS</h2>
+        <p>Os produtos disponibilizados pela WaveNoise Lab são arquivos digitais. Por sua natureza, a aquisição não envolve o envio de produtos físicos.</p>
+        <p>As informações apresentadas nas páginas dos produtos, incluindo descrição, formato, compatibilidade, conteúdo e demais especificações, destinam-se a informar as características de cada produto.</p>
+        <p>A WaveNoise Lab poderá atualizar, corrigir ou aprimorar seus produtos e respectivas informações, sem comprometer as características essenciais daquilo que foi adquirido.</p>
+      </section>
 
-    <section>
-      <h2>Reembolso</h2>
-      <p>[DEFINIR POLÍTICA DE REEMBOLSO – ainda a ser revisada]</p>
-    </section>
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">3. LICENÇA DE USO</h2>
+        <p>Salvo indicação diferente na página ou documentação específica do produto, a aquisição de um produto da WaveNoise Lab concede ao comprador uma licença de uso dos arquivos para fins de produção musical.</p>
+        <p>Os samples e demais recursos sonoros podem ser incorporados a músicas, trilhas, performances e produções audiovisuais e outros trabalhos criativos do usuário, respeitando as condições específicas de licença informadas para cada produto.</p>
+       <div class="mt-8 border border-border bg-surface p-5 sm:p-6">
+  <h3 class="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+    É permitido
+  </h3>
 
-    <section>
-      <h2>Informações do Responsável</h2>
-      <p>Nome / Razão Social: [DEFINIR RESPONSÁVEL]
-      <br/>CNPJ: [DEFINIR CNPJ]
-      <br/>E‑mail de contato: [DEFINIR E‑MAIL DE CONTATO]
-      </p>
-    </section>
+  <ul class="mt-4 space-y-2 pl-0">
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Utilizar os samples em produções musicais próprias ou de terceiros;</span>
+    </li>
+
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Incorporar os sons em músicas, trilhas, performances e outras obras derivadas;</span>
+    </li>
+
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Utilizar os sons em projetos comerciais, quando permitido pela licença específica do produto.</span>
+    </li>
+  </ul>
+</div>
+
+<div class="mt-4 border border-border bg-surface p-5 sm:p-6">
+  <h3 class="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+    Não é permitido
+  </h3>
+
+  <ul class="mt-4 space-y-2 pl-0">
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Revender ou redistribuir os arquivos originais;</span>
+    </li>
+
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Disponibilizar os arquivos para download público;</span>
+    </li>
+
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Compartilhar os arquivos com terceiros como se fossem produtos próprios;</span>
+    </li>
+
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Utilizar os arquivos para criar ou comercializar outro pacote de samples substancialmente baseado nos arquivos originais;</span>
+    </li>
+
+    <li class="flex gap-3">
+      <span class="text-accent">•</span>
+      <span>Disponibilizar os arquivos em bibliotecas, plataformas ou serviços cujo objetivo principal seja a redistribuição dos próprios samples.</span>
+    </li>
+  </ul>
+        </div>
+        <p class="mt-5">A utilização dos sons dentro de uma obra musical ou audiovisual não constitui redistribuição dos arquivos originais.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">4. COMPRA E PAGAMENTO</h2>
+        <p>Os produtos pagos poderão ser adquiridos por meio de plataformas ou serviços de pagamento de terceiros.</p>
+        <p>A WaveNoise Lab não armazena diretamente dados completos de cartões ou outras informações financeiras utilizadas no processamento do pagamento, quando este for realizado por um provedor externo.</p>
+        <p>As condições específicas de pagamento, processamento e confirmação da compra poderão depender da plataforma utilizada no momento da aquisição.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">5. ENTREGA DOS PRODUTOS</h2>
+        <p>Após a confirmação do pagamento, o produto digital será disponibilizado ao comprador por meio do sistema de entrega definido pela WaveNoise Lab ou por seu provedor de pagamento/entrega.</p>
+        <p>O método de entrega, prazo de disponibilização e eventuais limites de download serão informados durante o processo de compra, quando aplicável.</p>
+        <p>Caso o comprador tenha problemas para acessar ou baixar um produto adquirido, deverá entrar em contato por meio do canal oficial de atendimento.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">6. PRODUTOS GRATUITOS</h2>
+        <p>A WaveNoise Lab poderá disponibilizar determinados produtos gratuitamente.</p>
+        <p>Produtos gratuitos poderão possuir condições de uso específicas, que prevalecerão sobre as disposições gerais destes Termos quando expressamente indicadas na página ou documentação correspondente.</p>
+        <p>A disponibilização gratuita de um produto não implica obrigação de manutenção permanente de sua oferta.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">7. REEMBOLSOS E CANCELAMENTOS</h2>
+        <p>Os produtos comercializados pela WaveNoise Lab são produtos digitais disponibilizados por meio eletrônico após a confirmação da compra.</p>
+        <p>Antes da aquisição, o comprador poderá consultar as informações disponibilizadas na página do produto, incluindo descrição, especificações, compatibilidade e, quando disponível, demonstrações em áudio ou vídeo.</p>
+        <p>Os pedidos de cancelamento e reembolso serão tratados de acordo com a legislação brasileira aplicável, incluindo os direitos assegurados ao consumidor.</p>
+        <p>Quando aplicável o direito de arrependimento previsto na legislação, o pedido será processado nos termos e prazos legalmente estabelecidos.</p>
+        <p>Em caso de problema técnico, arquivo corrompido, erro de entrega ou divergência relevante entre o produto adquirido e sua descrição, a WaveNoise Lab buscará solucionar o problema por meio de substituição do arquivo, correção do problema ou outra solução adequada, observada a legislação aplicável.</p>
+        <p>A solicitação relacionada a problemas de acesso ou funcionamento do produto deverá ser encaminhada pelo canal oficial de atendimento informado no site.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">8. DISPONIBILIDADE DO SITE</h2>
+        <p>A WaveNoise Lab buscará manter o site e seus recursos disponíveis, mas não garante disponibilidade ininterrupta.</p>
+        <p>O site poderá ficar temporariamente indisponível para manutenção, atualização, correção de problemas técnicos ou por fatores externos.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">9. PROPRIEDADE INTELECTUAL</h2>
+        <p>O conteúdo do site, incluindo textos, identidade visual, imagens, elementos gráficos, marcas, logotipos, código e demais materiais próprios da WaveNoise Lab, é protegido pela legislação aplicável de propriedade intelectual.</p>
+        <p>A aquisição de um produto digital não transfere ao comprador a propriedade intelectual sobre os arquivos, sobre a marca WaveNoise Lab ou sobre qualquer outro elemento protegido.</p>
+        <p>A licença concedida limita-se aos direitos de utilização expressamente previstos para o produto adquirido.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">10. USO INDEVIDO</h2>
+        <p>A utilização do site, dos produtos ou dos materiais da WaveNoise Lab para atividades ilícitas, fraudulentas ou que violem estes Termos não é permitida.</p>
+        <p>A identificação de distribuição não autorizada, revenda ou disponibilização pública dos arquivos originais poderá resultar na adoção das medidas cabíveis para proteção dos direitos da WaveNoise Lab.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">11. ALTERAÇÕES DOS TERMOS</h2>
+        <p>Estes Termos de Uso poderão ser atualizados para refletir alterações no site, nos produtos, nos serviços utilizados ou na legislação aplicável.</p>
+        <p>A versão vigente estará disponível nesta página, acompanhada da respectiva data de atualização.</p>
+      </section>
+
+      <section>
+        <h2 class="mb-5 text-xl font-semibold text-text-main">12. LEGISLAÇÃO APLICÁVEL</h2>
+        <p>Estes Termos de Uso serão interpretados de acordo com a legislação brasileira, respeitados os direitos assegurados pela legislação aplicável aos consumidores e usuários.</p>
+      </section>
+
+      <section class="border-t border-border pt-10">
+        <h2 class="mb-5 text-xl font-semibold text-text-main">13. CONTATO</h2>
+        <p>Para dúvidas, problemas relacionados a produtos adquiridos ou outras questões relacionadas à WaveNoise Lab:</p>
+        <div class="mt-6 space-y-2 border border-border bg-surface p-5 sm:p-6">
+          <p>
+            <span class="font-mono text-xs uppercase tracking-wider text-text-secondary">E-mail</span><br />
+            <span class="text-text-main">[DEFINIR E-MAIL DE CONTATO]</span>
+          </p>
+          <div class="border-t border-border pt-4">
+            <p class="font-semibold text-text-main">WaveNoise Lab</p>
+            <p class="mt-1">Recursos sonoros para produção musical.</p>
+          </div>
+        </div>
+      </section>
+    </div>
   </main>
   <Footer />
 </BaseLayout>
-

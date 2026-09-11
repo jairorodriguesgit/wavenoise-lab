@@ -2,10 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import YouTubeEmbed from '../../components/YouTubeEmbed.astro';
-import SpecsTable from '../../components/SpecsTable.astro';
 import BuyButton from '../../components/BuyButton.astro';
 import Footer from '../../components/Footer.astro';
 import { products, getRelatedProducts, type Product } from '../../data/products';
+import { whatsAppGeneral } from '../../data/site.config';
 
 export async function getStaticPaths() {
   return products.map((product) => ({
@@ -19,179 +19,213 @@ interface Props {
 }
 
 const { product } = Astro.props;
-
-// Obtém os outros packs (excluindo o atual) para a seção de relacionados
 const relatedProducts = getRelatedProducts(product.id, 4);
+const waUrl = whatsAppGeneral();
+
+// Badge usa só o primeiro segmento da categoria
+const badgeLabel = product.category.split('/')[0].trim();
+
+// Monta lista de specs (filtra os nulos)
+const specItems = [
+  { label: 'Conteúdo',       value: product.specs.contents },
+  { label: 'Quantidade',     value: product.specs.sampleCount },
+  { label: 'Formato',        value: product.specs.format },
+  { label: 'Resolução',      value: product.specs.resolution },
+  { label: 'Compatibilidade',value: product.specs.compatibility },
+  { label: 'Tamanho',        value: product.specs.fileSize },
+  { label: 'Licença',        value: product.specs.license },
+  ...(product.specs.requirements
+    ? [{ label: 'Requisitos', value: product.specs.requirements }]
+    : []),
+].filter((s) => s.value !== null && s.value !== undefined && s.value !== '');
 ---
 
 <BaseLayout
   title={`WaveNoise Lab — ${product.name}`}
-  description={product.description || 'Sample pack profissional para bateria e produção musical.'}
-  ogImage={product.coverImage || '/favicon.svg'}
+  description={product.description ?? 'Sample pack de bateria e percussão gravado em estúdio.'}
+  ogImage={product.coverImage ?? '/favicon.svg'}
 >
   <Header />
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-16 w-full flex flex-col gap-16">
-    <!-- Bloco Principal do Produto (Desktop: 2 Colunas / Mobile: 1 Coluna) -->
-    <section class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
-      <!-- Coluna da Esquerda: Capa do Produto (1:1) -->
-      <div class="md:col-span-6 lg:col-span-5 w-full">
-        {
-          product.coverImage ? (
-            <img
-              src={product.coverImage}
-              alt={`Capa do produto ${product.name}`}
-              class="w-full aspect-square object-cover rounded-sm border border-border"
-              loading="eager"
-            />
-          ) : (
-            <div class="w-full aspect-square bg-surface border border-border rounded-sm p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden group">
-              <div class="flex items-center justify-between font-mono text-[11px] text-text-muted">
-                <span>{product.id.toUpperCase()}</span>
-                <span>WAVENOISE LAB</span>
-              </div>
+  <main class="max-w-6xl mx-auto px-6 py-12 flex flex-col gap-20">
 
-              <div class="flex flex-col items-center justify-center text-center my-auto py-6">
-                <span class="font-mono text-[11px] uppercase tracking-widest text-text-muted mb-2">
-                  {product.category}
-                </span>
-                <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-text-main uppercase">
-                  {product.name}
-                </h2>
-              </div>
+    <!-- ═══ PRODUTO PRINCIPAL ═══════════════════════════════ -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
 
-              <div class="border-t border-border/80 pt-3 flex items-center justify-between font-mono text-[10px] text-text-muted">
-                <span>FORMAT: WAV 24-BIT</span>
-                <span class="text-accent uppercase font-medium">ARTE EM PRODUÇÃO</span>
-              </div>
+      <!-- Capa -->
+      <div
+        class="overflow-hidden"
+        style="border-radius:24px;border:1px solid rgba(255,255,255,0.08);aspect-ratio:1"
+      >
+        {product.coverImage ? (
+          <img
+            src={product.coverImage}
+            alt={`Capa de ${product.name}`}
+            class="w-full h-full object-cover"
+            loading="eager"
+          />
+        ) : (
+          <div
+            class="w-full h-full flex flex-col justify-between p-6"
+            style="background:repeating-linear-gradient(135deg,rgba(242,237,228,0.04) 0 10px,transparent 10px 24px),#1b1917"
+          >
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[11px] tracking-widest uppercase text-chassis bg-accent px-2.5 py-1 rounded-full">
+                {badgeLabel}
+              </span>
+              <span class="font-mono text-[11px] text-text-muted/40">WNL</span>
             </div>
-          )
-        }
+            <div class="text-center">
+              <p class="font-mono text-xs text-text-muted/50 uppercase tracking-widest mb-2">{product.category}</p>
+              <h2 class="font-heading font-bold text-2xl text-text-main">{product.name}</h2>
+            </div>
+            <p class="font-mono text-[11px] text-text-muted/40 uppercase tracking-widest text-center">Arte em produção</p>
+          </div>
+        )}
       </div>
 
-      <!-- Coluna da Direita: Informações, Preço e Compra -->
-      <div class="md:col-span-6 lg:col-span-7 flex flex-col gap-6">
-        <!-- Categoria com indicador visual -->
-        <div class="flex items-center gap-2">
-          {product.isFree && <span class="w-2 h-2 rounded-full bg-accent inline-block" />}
-          <span class="font-mono text-xs uppercase tracking-widest text-text-muted">
-            {product.category}
-          </span>
+      <!-- Informações e compra -->
+      <div class="flex flex-col gap-6">
+        <div>
+          <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-3">{product.category}</p>
+          <h1
+            class="font-heading font-extrabold text-text-main leading-tight mb-4"
+            style="font-size:clamp(36px,5vw,64px);letter-spacing:-0.03em"
+          >
+            {product.name}
+          </h1>
+          {product.tagline && (
+            <p class="text-text-main text-lg font-medium leading-relaxed mb-3">{product.tagline}</p>
+          )}
+          {product.description && (
+            <p class="text-text-muted leading-relaxed" style="text-wrap:pretty">{product.description}</p>
+          )}
         </div>
 
-        <!-- Nome do Produto -->
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-text-main uppercase">
-          {product.name}
-        </h1>
-
-        <!-- Subtítulo / Tagline (se existir) -->
-        {product.tagline && (
-          <p class="text-base sm:text-lg text-text-main font-medium leading-relaxed">
-            {product.tagline}
-          </p>
-        )}
-
-        <!-- Descrição Curta e Objetiva -->
-        {product.description && (
-          <p class="text-sm sm:text-base text-text-muted leading-relaxed max-w-xl">
-            {product.description}
-          </p>
-        )}
-
-        <!-- Preço e Botão de Ação -->
-        <div class="pt-4 border-t border-border max-w-md">
+        <div class="pt-6" style="border-top:1px solid rgba(255,255,255,0.08)">
           <BuyButton
             isFree={product.isFree}
             price={product.price}
             originalPrice={product.originalPrice}
             ctaLabel={product.ctaLabel}
             checkoutUrl={product.checkoutUrl}
+            productName={product.name}
           />
         </div>
       </div>
     </section>
 
-    <!-- Bloco 2: Vídeo de Demonstração em Contexto Musical -->
-    <section class="flex flex-col gap-4 border-t border-border pt-12">
-      <div class="flex items-center justify-between">
-        <h2 class="font-mono text-xs uppercase tracking-wider text-text-main font-semibold">
-          DEMONSTRAÇÃO EM CONTEXTO MUSICAL
+    <!-- ═══ VÍDEO DE DEMONSTRAÇÃO ════════════════════════════ -->
+    {product.youtubeVideoId && (
+      <section>
+        <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-3">Demonstração</p>
+        <h2
+          class="font-heading font-bold text-text-main mb-7"
+          style="font-size:clamp(24px,3vw,38px);letter-spacing:-0.02em"
+        >
+          Veja o pack aplicado numa produção
         </h2>
-        <span class="font-mono text-[11px] text-text-muted">AUDIO PREVIEW</span>
-      </div>
-      <YouTubeEmbed
-        videoId={product.youtubeVideoId}
-        title={product.name}
-        aspectRatio={product.youtubeAspectRatio}
-      />
-    </section>
+        <div style="border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.08)">
+          <YouTubeEmbed
+            videoId={product.youtubeVideoId}
+            title={product.name}
+            aspectRatio={product.youtubeAspectRatio}
+          />
+        </div>
+      </section>
+    )}
 
-    <!-- Bloco 3: Especificações Técnicas -->
-    <section class="flex flex-col gap-4 border-t border-border pt-12">
-      <div class="flex items-center justify-between">
-        <h2 class="font-mono text-xs uppercase tracking-wider text-text-main font-semibold">
-          DETALHES E COMPATIBILIDADE
+    <!-- ═══ ESPECIFICAÇÕES ════════════════════════════════════ -->
+    {specItems.length > 0 && (
+      <section>
+        <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-3">Detalhes técnicos</p>
+        <h2
+          class="font-heading font-bold text-text-main mb-7"
+          style="font-size:clamp(24px,3vw,38px);letter-spacing:-0.02em"
+        >
+          Especificações do pack
         </h2>
-        <span class="font-mono text-[11px] text-text-muted">SPECS</span>
-      </div>
-      <SpecsTable specs={product.specs} />
-    </section>
-
-    <!-- Bloco 4: Mais da WaveNoise Lab (Produtos Relacionados) -->
-    {
-      relatedProducts.length > 0 && (
-        <section class="flex flex-col gap-6 border-t border-border pt-12">
-          <div class="flex items-center justify-between">
-            <h2 class="font-mono text-xs uppercase tracking-wider text-text-main font-semibold">
-              MAIS DA WAVENOISE LAB
-            </h2>
-            <a
-              href="/"
-              class="font-mono text-[11px] text-text-muted hover:text-text-main transition uppercase"
+        <div
+          class="overflow-hidden grid grid-cols-1 sm:grid-cols-2"
+          style="background:#1b1917;border:1px solid rgba(255,255,255,0.08);border-radius:20px"
+        >
+          {specItems.map((s) => (
+            <div
+              class="flex flex-col gap-1.5 p-5"
+              style="border-bottom:1px solid rgba(255,255,255,0.08);border-right:1px solid rgba(255,255,255,0.08)"
             >
-              Ver todos &rarr;
-            </a>
-          </div>
+              <span class="font-mono text-[11px] uppercase tracking-widest text-text-muted">{s.label}</span>
+              <span class="text-text-main font-medium">{s.value}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
 
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {relatedProducts.map((rel) => (
-              <a
-                href={`/products/${rel.slug}`}
-                class="border border-border bg-surface rounded-sm p-4 flex flex-col justify-between hover:bg-surface-hover hover:border-text-muted/40 transition group"
+    <!-- ═══ PRODUTOS RELACIONADOS ════════════════════════════ -->
+    {relatedProducts.length > 0 && (
+      <section>
+        <div class="flex items-baseline justify-between gap-4 mb-6">
+          <h2 class="font-heading font-bold text-xl text-text-main">Mais da WaveNoise Lab</h2>
+          <a href="/" class="font-mono text-xs text-text-muted hover:text-text-main transition">
+            ver catálogo →
+          </a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {relatedProducts.map((rel) => (
+            <a
+              href={`/products/${rel.slug}`}
+              class="flex items-center gap-3 p-4 rounded-2xl transition hover:opacity-90"
+              style="background:#1b1917;border:1px solid rgba(255,255,255,0.08)"
+            >
+              <!-- Mini capa -->
+              <span
+                class="w-14 h-14 rounded-xl flex-shrink-0 overflow-hidden flex items-center justify-center"
+                style="background:#121110;border:1px solid rgba(255,255,255,0.06)"
               >
-                <div class="aspect-square bg-chassis border border-border/60 rounded-sm p-3 flex flex-col justify-between mb-3 text-center">
-                  <span class="font-mono text-[9px] text-text-muted uppercase tracking-wider">
-                    {rel.category}
-                  </span>
-                  <span class="font-mono text-xs font-bold text-text-main uppercase group-hover:text-accent transition-colors line-clamp-2">
-                    {rel.name}
-                  </span>
-                  <span class="font-mono text-[9px] text-text-muted/60">PACK</span>
-                </div>
+                {rel.coverImage ? (
+                  <img src={rel.coverImage} alt={rel.name} class="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <span class="font-mono text-[8px] text-text-muted/40 text-center px-1">WNL</span>
+                )}
+              </span>
+              <!-- Info -->
+              <span class="flex flex-col gap-0.5 min-w-0">
+                <span class="font-heading font-bold text-sm text-text-main truncate">{rel.name}</span>
+                <span class="font-mono text-[10px] text-text-muted uppercase truncate">
+                  {rel.category.split('/')[0].trim()}
+                </span>
+                <span class="font-mono text-xs text-accent font-medium">
+                  {rel.isFree ? 'FREE' : rel.price ? `R$ ${rel.price}` : 'Em breve'}
+                </span>
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
 
-                <div class="flex flex-col gap-1">
-                  <span class="font-mono text-[10px] text-text-muted uppercase truncate">
-                    {rel.category}
-                  </span>
-                  <span class="text-xs font-bold text-text-main truncate">
-                    {rel.name}
-                  </span>
-                  <span class="font-mono text-xs font-semibold mt-1 text-text-main">
-                    {rel.isFree ? (
-                      <span class="text-accent">FREE</span>
-                    ) : rel.price !== null ? (
-                      `R$ ${rel.price}`
-                    ) : (
-                      <span class="text-text-muted text-[11px]">EM BREVE</span>
-                    )}
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
-        </section>
-      )
-    }
+    <!-- ═══ CTA WHATSAPP ═════════════════════════════════════ -->
+    <section>
+      <div
+        class="p-8 flex flex-col sm:flex-row justify-between items-center gap-6"
+        style="background:#1b1917;border:1px solid rgba(255,255,255,0.08);border-radius:24px"
+      >
+        <div>
+          <p class="font-mono text-xs text-text-muted uppercase tracking-widest mb-2">Ficou com dúvida?</p>
+          <h3 class="font-heading font-bold text-xl text-text-main">Fale direto no WhatsApp.</h3>
+        </div>
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="font-semibold text-sm px-6 py-3.5 rounded-full bg-accent text-chassis hover:opacity-90 transition whitespace-nowrap flex-shrink-0"
+        >
+          Abrir WhatsApp →
+        </a>
+      </div>
+    </section>
+
   </main>
 
   <Footer />

@@ -2,24 +2,89 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { whatsAppGeneral } from '../data/site.config';
+
+const waUrl = whatsAppGeneral();
 ---
 
-<BaseLayout title="Sobre – WaveNoise Lab" description="Laboratório sonoro independente que cria samples e recursos para bateria, voltados para produtores e músicos." >
+<BaseLayout
+  title="Sobre — WaveNoise Lab"
+  description="WaveNoise Lab é um laboratório sonoro independente especializado em samples de bateria gravados em estúdio para bateristas, produtores e músicos."
+>
   <Header />
-  <main class="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8 prose prose-invert text-text-main">
-    <section>
-      <h1>Sobre o WaveNoise Lab</h1>
-      <p>
-        O WaveNoise Lab é um laboratório sonoro independente especializado na criação de samples, kits e recursos de áudio para bateria. Nosso foco está em oferecer timbres autênticos, dinâmica expressiva e pegada prática que atendam às necessidades de bateristas, produtores e compositores.
-      </p>
-      <p>
-        Cada biblioteca é desenvolvida a partir de gravações detalhadas, processamento cuidadoso e curadoria musical, garantindo que os sons sejam úteis tanto em produções caseiras quanto em projetos profissionais.
-      </p>
-      <p>
-        Trabalhamos com pads, DAWs e fluxos de trabalho modernos, sempre priorizando a utilidade prática e a integração fluida nos arranjos.
-      </p>
-    </section>
+
+  <main class="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+
+    <!-- Texto -->
+    <div>
+      <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-4">Sobre</p>
+      <h1
+        class="font-heading font-extrabold text-text-main leading-tight mb-8"
+        style="font-size:clamp(36px,5.5vw,68px);letter-spacing:-0.03em;text-wrap:balance"
+      >
+        Feito por quem toca, para quem cria.
+      </h1>
+
+      <div class="flex flex-col gap-5 text-text-muted leading-relaxed" style="text-wrap:pretty">
+        <p>
+          O WaveNoise Lab nasceu de uma inquietação simples: as bibliotecas de samples soavam iguais.
+          Muita quantidade, pouca alma.
+        </p>
+        <p>
+          Cada pack é gravado no estúdio com instrumentos de verdade, microfones posicionados à mão
+          e tempo para errar até acertar. O Rock tem a sujeira certa. O Metal tem o impacto certo.
+          O Worship tem o espaço certo.
+        </p>
+        <p>
+          A ideia não é substituir a sua criatividade — é dar a ela matéria-prima com textura e
+          caráter. Packs temáticos que você combina do seu jeito.
+        </p>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-3 gap-5 mt-10">
+        <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:14px">
+          <p class="font-heading font-extrabold text-3xl text-text-main mb-1">WAV</p>
+          <p class="font-mono text-xs text-text-muted leading-snug">formato único, sem compressão</p>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:14px">
+          <p class="font-heading font-extrabold text-3xl text-text-main mb-1">24-bit</p>
+          <p class="font-mono text-xs text-text-muted leading-snug">resolução profissional</p>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.15);padding-top:14px">
+          <p class="font-heading font-extrabold text-3xl text-text-main mb-1">100%</p>
+          <p class="font-mono text-xs text-text-muted leading-snug">gravado em estúdio</p>
+        </div>
+      </div>
+
+      <a
+        href={waUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center font-semibold text-sm px-6 py-3.5 rounded-full mt-10 transition hover:bg-white/10"
+        style="border:1px solid rgba(255,255,255,0.2);color:#f2ede4"
+      >
+        Conversar no WhatsApp →
+      </a>
+    </div>
+
+    <!-- Imagens placeholder (substituir quando tiver fotos) -->
+    <div class="flex flex-col gap-4">
+      <div
+        class="flex items-center justify-center"
+        style="border-radius:24px;border:1px solid rgba(255,255,255,0.08);background:repeating-linear-gradient(135deg,rgba(242,237,228,0.04) 0 10px,transparent 10px 24px),#1b1917;aspect-ratio:4/5"
+      >
+        <span class="font-mono text-xs text-text-muted/40">[ retrato do músico ]</span>
+      </div>
+      <div
+        class="flex items-center justify-center"
+        style="border-radius:24px;border:1px solid rgba(255,255,255,0.08);background:repeating-linear-gradient(135deg,rgba(242,237,228,0.04) 0 10px,transparent 10px 24px),#1b1917;aspect-ratio:16/9"
+      >
+        <span class="font-mono text-xs text-text-muted/40">[ foto do estúdio ]</span>
+      </div>
+    </div>
+
   </main>
+
   <Footer />
 </BaseLayout>
-

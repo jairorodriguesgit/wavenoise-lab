@@ -1,102 +1,86 @@
 ---
+import { whatsAppForProduct } from '../data/site.config';
+
 interface Props {
   isFree: boolean;
   price: number | null;
   originalPrice?: number | null;
   ctaLabel?: string | null;
   checkoutUrl?: string | null;
+  /** Nome do produto — usado para montar a mensagem do WhatsApp */
+  productName: string;
 }
 
-const { isFree, price, originalPrice, ctaLabel, checkoutUrl } = Astro.props;
+const { isFree, price, originalPrice, ctaLabel, checkoutUrl, productName } = Astro.props;
 
-// Formatação do preço em Real (quando existir número)
 const formattedPrice =
-  typeof price === 'number'
-    ? price === 0
-      ? 'FREE'
-      : new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format(price)
+  typeof price === 'number' && price > 0
+    ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price)
     : null;
 
 const formattedOriginalPrice =
   typeof originalPrice === 'number'
-    ? new Intl.NumberFormat('pt-BR', {
-        style: 'currency',
-        currency: 'BRL',
-      }).format(originalPrice)
+    ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(originalPrice)
     : null;
+
+// Se não tiver URL de checkout, vai direto pro WhatsApp com mensagem pré-preenchida
+const actionUrl = checkoutUrl ?? whatsAppForProduct(productName, price);
+const isWhatsApp = !checkoutUrl;
+
+const hasAction = isFree || (price !== null && price !== undefined);
 ---
 
-<div class="flex flex-col gap-3 w-full">
-  <!-- Área de Exibição do Preço -->
+<div class="flex flex-col gap-4 w-full">
+
+  <!-- Exibição do preço -->
   <div class="flex items-baseline gap-3">
-    {
-      isFree ? (
-        <div class="flex items-center gap-2">
-          <span class="font-mono text-xl sm:text-2xl font-bold text-text-main tracking-tight">
-            FREE
-          </span>
-          <span class="px-2 py-0.5 border border-accent/40 bg-accent/10 text-accent font-mono text-[10px] uppercase tracking-wider rounded-sm">
-            Acesso Livre
-          </span>
-        </div>
-      ) : price !== null ? (
-        <div class="flex items-baseline gap-2">
-          <span class="font-mono text-xl sm:text-2xl font-bold text-text-main tracking-tight">
-            {formattedPrice}
-          </span>
-          {formattedOriginalPrice && (
-            <span class="font-mono text-xs text-text-muted line-through">
-              {formattedOriginalPrice}
-            </span>
-          )}
-        </div>
-      ) : (
-        <div class="flex items-center gap-2">
-          <span class="font-mono text-sm sm:text-base font-semibold text-text-muted uppercase tracking-wider">
-            PREÇO EM BREVE
-          </span>
-          <span class="w-1.5 h-1.5 rounded-full bg-text-muted/60 inline-block" />
-        </div>
-      )
-    }
+    {isFree ? (
+      <div class="flex items-center gap-3">
+        <span class="font-heading font-bold text-3xl text-text-main">FREE</span>
+        <span
+          class="font-mono text-[10px] uppercase tracking-wider text-accent px-2.5 py-1 rounded-full"
+          style="border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06)"
+        >
+          Acesso Livre
+        </span>
+      </div>
+    ) : price !== null && price !== undefined && price > 0 ? (
+      <div class="flex items-baseline gap-2">
+        <span class="font-heading font-bold text-3xl text-text-main">{formattedPrice}</span>
+        {formattedOriginalPrice && (
+          <span class="font-mono text-sm text-text-muted line-through">{formattedOriginalPrice}</span>
+        )}
+      </div>
+    ) : (
+      <span class="font-mono text-base uppercase tracking-wider text-text-muted">Preço em breve</span>
+    )}
   </div>
 
-  <!-- Botão de Ação -->
-  {
-    isFree ? (
-      checkoutUrl ? (
-        <a
-          href={checkoutUrl}
-          class="h-12 px-6 bg-text-main text-chassis font-bold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 active:scale-[0.98] transition flex items-center justify-center text-center cursor-pointer"
-        >
-          {ctaLabel || 'DOWNLOAD GRÁTIS'}
-        </a>
-      ) : (
-        <button
-          type="button"
-          class="h-12 px-6 bg-text-main text-chassis font-bold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 active:scale-[0.98] transition flex items-center justify-center text-center cursor-pointer"
-        >
-          {ctaLabel || 'DOWNLOAD GRÁTIS'}
-        </button>
-      )
-    ) : checkoutUrl ? (
-      <a
-        href={checkoutUrl}
-        class="h-12 px-6 bg-text-main text-chassis font-bold text-xs uppercase tracking-wider rounded-sm hover:opacity-90 active:scale-[0.98] transition flex items-center justify-center text-center cursor-pointer"
-      >
-        {ctaLabel || 'COMPRAR PACK'}
-      </a>
-    ) : (
-      <button
-        type="button"
-        disabled
-        class="h-12 px-6 border border-border bg-surface text-text-muted font-mono font-bold text-xs uppercase tracking-wider rounded-sm cursor-not-allowed opacity-60 flex items-center justify-center text-center"
-      >
-        EM BREVE
-      </button>
-    )
-  }
+  <!-- Botão de ação -->
+  {hasAction ? (
+    <a
+      href={actionUrl}
+      target={isWhatsApp ? '_blank' : undefined}
+      rel={isWhatsApp ? 'noopener noreferrer' : undefined}
+      class="flex items-center justify-center text-center font-semibold text-sm px-6 py-3.5 rounded-full bg-text-main text-chassis hover:opacity-90 active:scale-[0.98] transition"
+    >
+      {ctaLabel ?? (isFree ? 'DOWNLOAD GRÁTIS' : 'COMPRAR')}
+    </a>
+  ) : (
+    <button
+      type="button"
+      disabled
+      class="flex items-center justify-center font-mono font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full cursor-not-allowed opacity-50 text-text-muted"
+      style="border:1px solid rgba(255,255,255,0.15)"
+    >
+      EM BREVE
+    </button>
+  )}
+
+  <!-- Nota explicativa quando a compra é via WhatsApp -->
+  {!isFree && hasAction && isWhatsApp && (
+    <p class="font-mono text-[11px] text-text-muted text-center leading-relaxed">
+      Você será redirecionado para o WhatsApp para confirmar a compra. Link de download enviado em até 24h.
+    </p>
+  )}
 </div>

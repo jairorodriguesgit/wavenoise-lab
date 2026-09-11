@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = 'WaveNoise Lab — Audio & Drum Samples',
-  description = 'Samples e recursos sonoros profissionais voltados para bateristas e produtores musicais.',
+  title = 'WaveNoise Lab — Samples & Recursos Sonoros de Bateria',
+  description = 'Samples de bateria gravados em estúdio para bateristas, produtores e músicos. Rock, Metal, Worship, Vintage e 80s.',
   ogImage = '/favicon.svg',
 } = Astro.props;
 
@@ -23,6 +23,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://wavenois
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Fontes Google (mesmas do protótipo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- SEO Primário -->
     <title>{title}</title>
@@ -44,8 +52,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://wavenois
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
   </head>
-  <body class="bg-chassis text-text-main min-h-screen flex flex-col font-sans">
+  <body>
     <slot />
   </body>
 </html>
-
