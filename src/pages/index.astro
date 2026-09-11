@@ -27,7 +27,7 @@ const freeProduct = products.find((p) => p.isFree);
       ></div>
 
       <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-5 animate-rise">
-        100% WAV · Qualidade de Estúdio · Bateria & Percussão
+        100% WAV · Qualidade de Estúdio · Bateria, Percussão & FX
       </p>
 
       <h1
@@ -45,12 +45,12 @@ const freeProduct = products.find((p) => p.isFree);
           Cada pack é desenvolvido pensando em contexto musical, dinâmica, impacto e diferentes formas de utilização.
         </p>
         <div class="flex gap-3 flex-wrap">
-          <a
-            href="#catalogo"
-            class="font-semibold text-sm px-6 py-3.5 rounded-full bg-text-main text-chassis hover:opacity-90 active:scale-[0.98] transition"
-          >
-            Explorar Packs
-          </a>
+         <a
+  href="#catalogo"
+  class="font-semibold text-sm px-6 py-3.5 rounded-full bg-accent text-chassis hover:opacity-90 active:scale-[0.98] transition"
+>
+  Explorar Packs
+</a>
           <a
             href={waUrl}
             target="_blank"
@@ -94,26 +94,32 @@ const freeProduct = products.find((p) => p.isFree);
       <div class="max-w-6xl mx-auto px-6 py-16 grid grid-cols-1 sm:grid-cols-3 gap-12">
         <div>
           <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-3">01 — Escolha</p>
-          <h3 class="font-heading font-bold text-2xl text-text-main mb-3">Encontre seu universo sonoro</h3>
+          <h3 class="font-heading font-bold text-2xl text-text-main mb-3">Escolha o Pack que vai melhorar o seu som.</h3>
           <p class="text-text-muted text-sm leading-relaxed text-wrap-pretty">
-            Rock, Metal, Worship, Vintage ou 80s — cada pack nasce de um estilo.
-            Explore o catálogo e assista ao vídeo de demonstração antes de decidir.
+            Rock, Metal, Worship, Vintage e 80s — cada pack nasce com uma identidade sonora própria.
+            Explore o catálogo, conheça os sons e assista ao vídeo de demonstração antes de escolher.
           </p>
         </div>
         <div>
           <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-3">02 — Compre</p>
-          <h3 class="font-heading font-bold text-2xl text-text-main mb-3">Processo direto pelo WhatsApp</h3>
+          <h3 class="font-heading font-bold text-2xl text-text-main mb-3">Compre direto pelo WhatsApp, sem enrolação!</h3>
           <p class="text-text-muted text-sm leading-relaxed text-wrap-pretty">
-            Clique em comprar e você vai para o WhatsApp com o pedido já preenchido.
-            Confirmamos o pagamento e enviamos o link de download em até 24h.
+            Clique em Comprar e seu pedido será enviado para o nosso WhatsApp já preenchido.
+            Nossa equipe confirma os detalhes, você realiza o pagamento e, após a confirmação, recebe o link para baixar seu Pack.
+            <p class="font-heading font-bold text-sm text-text-main mb-1">
+              Rápido, direto e sem complicação.
+            </p>
           </p>
         </div>
         <div>
           <p class="font-mono text-xs tracking-[0.14em] uppercase text-accent mb-3">03 — Use</p>
-          <h3 class="font-heading font-bold text-2xl text-text-main mb-3">WAV. Qualquer DAW ou pad.</h3>
+          <h3 class="font-heading font-bold text-2xl text-text-main mb-3">Arquivo WAV. 44.1 kHz. Pronto pro seu PAD ou DAW</h3>
           <p class="text-text-muted text-sm leading-relaxed text-wrap-pretty">
-            Todos os arquivos são WAV — prontos para Ableton, FL Studio, Logic, Pro Tools,
-            GarageBand, MPC e qualquer módulo eletrônico.
+            Todos os samples são entregues em formato WAV, prontos para usar em sample pads compatíveis ou diretamente na sua produção.
+            Use no seu PAD ou importe para sua DAW — Ableton Live, FL Studio, Logic Pro, Pro Tools, Reaper ou qualquer outra que trabalhe com WAV.
+            <p class="font-heading font-bold text-sm text-text-main mb-1">
+              Baixou. Carregou. Tocou.
+            </p>
           </p>
         </div>
       </div>
@@ -131,7 +137,7 @@ const freeProduct = products.find((p) => p.isFree);
               class="font-mono text-[11px] tracking-widest uppercase text-accent px-3 py-1 rounded-full inline-block mb-5"
               style="border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05)"
             >
-              GRÁTIS · PORTA DE ENTRADA
+              GRÁTIS · WORSHIP · FX 
             </span>
             <h2
               class="font-heading font-bold text-text-main mb-3"
@@ -145,7 +151,7 @@ const freeProduct = products.find((p) => p.isFree);
           </div>
           <a
             href={`/products/${freeProduct.slug}`}
-            class="font-semibold text-sm px-6 py-3.5 rounded-full bg-text-main text-chassis hover:opacity-90 transition whitespace-nowrap flex-shrink-0"
+            class="font-semibold text-sm px-6 py-3.5 rounded-full bg-accent text-chassis hover:opacity-90 active:scale-[0.98] transition"
           >
             Baixar Grátis →
           </a>

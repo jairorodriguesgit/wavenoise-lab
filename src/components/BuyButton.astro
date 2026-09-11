@@ -56,26 +56,26 @@ const hasAction = isFree || (price !== null && price !== undefined);
     )}
   </div>
 
-  <!-- Botão de ação -->
-  {hasAction ? (
-    <a
-      href={actionUrl}
-      target={isWhatsApp ? '_blank' : undefined}
-      rel={isWhatsApp ? 'noopener noreferrer' : undefined}
-      class="flex items-center justify-center text-center font-semibold text-sm px-6 py-3.5 rounded-full bg-text-main text-chassis hover:opacity-90 active:scale-[0.98] transition"
-    >
-      {ctaLabel ?? (isFree ? 'DOWNLOAD GRÁTIS' : 'COMPRAR')}
-    </a>
-  ) : (
-    <button
-      type="button"
-      disabled
-      class="flex items-center justify-center font-mono font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full cursor-not-allowed opacity-50 text-text-muted"
-      style="border:1px solid rgba(255,255,255,0.15)"
-    >
-      EM BREVE
-    </button>
-  )}
+ <!-- Botão de ação -->
+{hasAction ? (
+  <a
+    href={actionUrl}
+    target={isWhatsApp ? '_blank' : undefined}
+    rel={isWhatsApp ? 'noopener noreferrer' : undefined}
+    class="flex items-center justify-center text-center font-semibold text-sm px-6 py-3.5 rounded-full bg-accent text-chassis hover:opacity-90 active:scale-[0.98] transition"
+  >
+    {ctaLabel ?? (isFree ? 'DOWNLOAD GRÁTIS' : 'COMPRAR')}
+  </a>
+) : (
+  <button
+    type="button"
+    disabled
+    class="flex items-center justify-center font-mono font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full cursor-not-allowed opacity-50 text-text-muted"
+    style="border:1px solid rgba(255,255,255,0.15)"
+  >
+    EM BREVE
+  </button>
+)}
 
   <!-- Nota explicativa quando a compra é via WhatsApp -->
   {!isFree && hasAction && isWhatsApp && (
