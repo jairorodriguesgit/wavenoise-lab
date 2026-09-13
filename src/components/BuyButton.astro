@@ -41,7 +41,7 @@ const hasAction = isFree || (price !== null && price !== undefined);
           class="font-mono text-[10px] uppercase tracking-wider text-accent px-2.5 py-1 rounded-full"
           style="border:1px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.06)"
         >
-          Acesso Livre
+          Isso mesmo, é gratuito!
         </span>
       </div>
     ) : price !== null && price !== undefined && price > 0 ? (
@@ -80,7 +80,7 @@ const hasAction = isFree || (price !== null && price !== undefined);
   <!-- Nota explicativa quando a compra é via WhatsApp -->
   {!isFree && hasAction && isWhatsApp && (
     <p class="font-mono text-[11px] text-text-muted text-center leading-relaxed">
-      Você será redirecionado para o WhatsApp para confirmar a compra. Link de download enviado em até 24h.
+      Você será redirecionado para o WhatsApp para confirmar a compra. Nossa equipe enviará o link de download em até 24h.
     </p>
   )}
 </div>
