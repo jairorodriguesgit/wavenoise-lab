@@ -7,7 +7,7 @@ export const siteConfig = {
   whatsappNumber: '556185182333',
   instagram: 'wavenoiselab',
   youtube: 'https://youtube.com/@wavenoiselabtube',
-  email: 'contato@wavenoiselab.com',
+  email: 'wavenoiselab@gmail.com',
 };
 
 /** Gera um link wa.me com texto pré-preenchido */
