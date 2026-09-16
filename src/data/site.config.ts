@@ -6,7 +6,7 @@ export const siteConfig = {
   /** Número de WhatsApp no formato internacional, somente dígitos */
   whatsappNumber: '556185182333',
   instagram: 'wavenoiselab',
-  youtube: 'https://youtube.com/@wavenoiselab',
+  youtube: 'https://youtube.com/@wavenoiselabtube',
   email: 'contato@wavenoiselab.com',
 };
 
