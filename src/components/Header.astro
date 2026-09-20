@@ -3,7 +3,7 @@ import { whatsAppGeneral } from '../data/site.config';
 
 const waUrl = whatsAppGeneral();
 const currentPath = Astro.url.pathname;
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <header
@@ -12,9 +12,9 @@ const base = import.meta.env.BASE_URL;
   <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4 flex-wrap">
 
     <!-- Logo -->
-    <a href={base} class="flex items-center gap-2.5 hover:opacity-80 transition">
+    <a href={`${base}/`} class="flex items-center gap-2.5 hover:opacity-80 transition">
   <img
-    src={`${base}logo-wnl.svg`}
+    src={`${base}/logo-wnl.svg`}
     alt="WaveNoise Lab"
     class="w-8 h-8 object-contain flex-shrink-0"
   />
@@ -32,13 +32,13 @@ const base = import.meta.env.BASE_URL;
         Samples
       </a>
       <a
-        href={`${base}products/free-altar-vibes-worship-fx`}
+        href={`${base}/products/free-altar-vibes-worship-fx`}
         class:list={['text-sm px-3 py-2 rounded-full transition', currentPath.includes('free-altar') ? 'text-text-main' : 'text-text-muted hover:text-text-main hover:bg-white/5']}
       >
         Free
       </a>
       <a
-        href={`${base}about`}
+        href={`${base}/about`}
         class:list={['text-sm px-3 py-2 rounded-full transition', currentPath === `${base}about` ? 'text-text-main' : 'text-text-muted hover:text-text-main hover:bg-white/5']}
       >
         Sobre
