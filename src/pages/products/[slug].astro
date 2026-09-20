@@ -21,6 +21,7 @@ interface Props {
 const { product } = Astro.props;
 const relatedProducts = getRelatedProducts(product.id, 4);
 const waUrl = whatsAppGeneral();
+const base = import.meta.env.BASE_URL;
 
 // Badge usa só o primeiro segmento da categoria
 const badgeLabel = product.category.split('/')[0].trim();
@@ -167,14 +168,14 @@ const specItems = [
       <section>
         <div class="flex items-baseline justify-between gap-4 mb-6">
           <h2 class="font-heading font-bold text-xl text-text-main">Mais Packs da WaveNoise Lab</h2>
-          <a href="/" class="font-mono text-xs text-text-muted hover:text-text-main transition">
+          <a href={base} class="font-mono text-xs text-text-muted hover:text-text-main transition">
             ver catálogo →
           </a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {relatedProducts.map((rel) => (
             <a
-              href={`/products/${rel.slug}`}
+              href={`${base}products/${rel.slug}`}
               class="flex items-center gap-3 p-4 rounded-2xl transition hover:opacity-90"
               style="background:#1b1917;border:1px solid rgba(255,255,255,0.08)"
             >
