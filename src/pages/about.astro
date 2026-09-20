@@ -5,7 +5,7 @@ import Footer from '../components/Footer.astro';
 import { whatsAppGeneral } from '../data/site.config';
 
 const waUrl = whatsAppGeneral();
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout
@@ -48,7 +48,7 @@ const base = import.meta.env.BASE_URL;
       style="border-radius:24px;border:1px solid rgba(255,255,255,0.08);aspect-ratio:4/5"
     >
       <img
-        src={`${base}images/about/jairo_rodrigues_profile.jpg`}
+        src={`${base}/images/about/jairo_rodrigues_profile.jpg`}
         alt="Jairo Rodrigues"
         class="w-full h-full object-cover"
       />
@@ -95,7 +95,7 @@ const base = import.meta.env.BASE_URL;
       style="border-radius:24px;border:1px solid rgba(255,255,255,0.08);aspect-ratio:16/9"
     >
       <img
-        src={`${base}images/about/jairo-02.jpg`}
+        src={`${base}/images/about/jairo-02.jpg`}
         alt="Jairo Rodrigues produzindo samples de bateria em estúdio"
         class="w-full h-full object-cover"
       />
@@ -152,7 +152,7 @@ const base = import.meta.env.BASE_URL;
       style="border-radius:24px;border:1px solid rgba(255,255,255,0.08);aspect-ratio:16/9"
     >
       <img
-        src={`${base}images/about/drums.jpg`}
+        src={`${base}/images/about/drums.jpg`}
         alt="Gravação de bateria em estúdio"
         class="w-full h-full object-cover"
       />
@@ -312,7 +312,7 @@ const base = import.meta.env.BASE_URL;
     style="border-radius:24px;border:1px solid rgba(255,255,255,0.08);aspect-ratio:4/5"
   >
     <img
-      src={`${base}images/about/dp2000.jpg`}
+      src={`${base}/images/about/dp2000.jpg`}
       alt="NUX DP2000 — Sample Pad"
       class="w-full h-full object-cover"
     />
