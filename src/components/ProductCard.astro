@@ -14,11 +14,11 @@ const formattedPrice =
 
 // Pega só o primeiro segmento da categoria para o badge (ex: "FREE" de "FREE / WORSHIP / FX")
 const badgeLabel = product.category.split('/')[0].trim();
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <a
-  href={`${base}products/${product.slug}`}
+  href={`${base}/products/${product.slug}`}
   class="group flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1"
   style="background:#1b1917;border:1px solid rgba(255,255,255,0.08);border-radius:20px"
 >
