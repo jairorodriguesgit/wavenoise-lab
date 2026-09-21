@@ -3,8 +3,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
-  site: 'https://jairorodriguesgit.github.io',
-  base: '/wavenoise-lab',
+  site: 'https://wavenoiselab.com.br',
+  base: '/',
   trailingSlash: 'ignore',
   vite: {
     plugins: [tailwindcss()],
