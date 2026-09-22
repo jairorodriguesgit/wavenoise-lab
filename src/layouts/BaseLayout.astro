@@ -41,6 +41,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://wavenois
 
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="WaveNoise Lab" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -48,6 +49,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://wavenois
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:site" content="@wavenoiselab" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
